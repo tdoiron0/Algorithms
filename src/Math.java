@@ -10,17 +10,19 @@ public class Math {
     public static final MathContext mc = new MathContext(decimalPlaces, RoundingMode.DOWN);
     public static final BigDecimal acc = BigDecimal.ONE.divide(bigPow(BigDecimal.valueOf(10), BigInteger.valueOf(decimalPlaces)));
 
-    public BigDecimal exp(BigDecimal x) {
+    public static BigDecimal exp(BigDecimal x) {
         BigDecimal res = new BigDecimal(0, mc);
         BigDecimal prevRes = new BigDecimal(1, mc);
-        BigInteger n = BigInteger.ONE;
+        BigInteger n = BigInteger.ZERO;
         while (res.abs().subtract(prevRes.abs()).abs().compareTo(acc) > 0) {
+            prevRes = res;
+
             BigDecimal temp = bigPow(x, n).divide(new BigDecimal(bigFactorial(n)), mc); 
             res = res.add(temp);
             n = n.add(BigInteger.ONE);
         }
 
-        return res;
+        return res.round(mc);
     }
 
     public static BigDecimal ln(BigDecimal a) {
