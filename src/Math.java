@@ -10,9 +10,17 @@ public class Math {
     public static final MathContext mc = new MathContext(decimalPlaces, RoundingMode.DOWN);
     public static final BigDecimal acc = BigDecimal.ONE.divide(bigPow(BigDecimal.valueOf(10), BigInteger.valueOf(decimalPlaces)));
 
-    public BigDecimal exp(BigDecimal a) {
+    public BigDecimal exp(BigDecimal x) {
+        BigDecimal res = new BigDecimal(0, mc);
+        BigDecimal prevRes = new BigDecimal(1, mc);
+        BigInteger n = BigInteger.ONE;
+        while (res.abs().subtract(prevRes.abs()).abs().compareTo(acc) > 0) {
+            BigDecimal temp = bigPow(x, n).divide(new BigDecimal(bigFactorial(n)), mc); 
+            res = res.add(temp);
+            n = n.add(BigInteger.ONE);
+        }
 
-        return null;
+        return res;
     }
 
     public static BigDecimal ln(BigDecimal a) {
@@ -41,6 +49,15 @@ public class Math {
         BigDecimal res = new BigDecimal("1", mc);
         while (n.compareTo(BigInteger.ZERO) > 0) {
             res = res.multiply(b, mc);
+            n = n.subtract(BigInteger.ONE);
+        }
+        return res;
+    }
+
+    public static BigInteger bigFactorial(BigInteger n) {
+        BigInteger res = BigInteger.ONE;
+        while (n.compareTo(BigInteger.ZERO) > 0) {
+            res = res.multiply(n);
             n = n.subtract(BigInteger.ONE);
         }
         return res;
