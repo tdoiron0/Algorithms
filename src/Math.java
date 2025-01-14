@@ -11,13 +11,13 @@ public class Math {
     public static final BigDecimal acc = BigDecimal.ONE.divide(bigPow(BigDecimal.valueOf(10), BigInteger.valueOf(decimalPlaces)));
 
     public static BigDecimal exp(BigDecimal x) {
-        BigDecimal res = new BigDecimal(0, mc);
-        BigDecimal prevRes = new BigDecimal(1, mc);
+        BigDecimal res = new BigDecimal(0, mc).setScale(decimalPlaces, RoundingMode.CEILING);;
+        BigDecimal prevRes = new BigDecimal(1, mc).setScale(decimalPlaces, RoundingMode.CEILING);;
         BigInteger n = BigInteger.ZERO;
         while (res.abs().subtract(prevRes.abs()).abs().compareTo(acc) > 0) {
             prevRes = res;
 
-            BigDecimal temp = bigPow(x, n).divide(new BigDecimal(bigFactorial(n)), mc); 
+            BigDecimal temp = bigPow(x, n).divide(new BigDecimal(bigFactorial(n)), decimalPlaces, RoundingMode.CEILING); 
             res = res.add(temp);
             n = n.add(BigInteger.ONE);
         }
