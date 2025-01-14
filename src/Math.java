@@ -22,7 +22,7 @@ public class Math {
             n = n.add(BigInteger.ONE);
         }
 
-        return res.round(mc);
+        return res.setScale(decimalPlaces, RoundingMode.CEILING);
     }
 
     public static BigDecimal ln(BigDecimal a) {
