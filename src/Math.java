@@ -64,4 +64,8 @@ public class Math {
         }
         return res;
     }
+
+    public static int abs(int x) {
+        return (x < 0) ? -x : x;
+    }
 }
