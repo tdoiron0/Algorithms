@@ -9,7 +9,7 @@ public class Math {
     public static final RoundingMode DEFAULT_ROUNDING_MODE = RoundingMode.CEILING;
     public static final int DEC_NUM = 100;
     public static final MathContext mc = new MathContext(DEC_NUM, DEFAULT_ROUNDING_MODE);
-    public static final BigDecimal acc = BigDecimal.ONE.divide(bigPow(BigDecimal.valueOf(10), BigInteger.valueOf(DEC_NUM).add(BigInteger.valueOf(1))));
+    public static final BigDecimal acc = BigDecimal.ONE.divide(bigPow(BigDecimal.valueOf(10), BigInteger.valueOf(DEC_NUM).add(BigInteger.valueOf(2))));
 
     public static BigDecimal exp(BigDecimal x) {
         BigDecimal res = new BigDecimal(0);
@@ -29,8 +29,8 @@ public class Math {
     }
 
     public static BigDecimal ln(BigDecimal a) {
-        BigDecimal x = BigDecimal.ONE.divide(a, mc).subtract(BigDecimal.ONE);
-        return mercator(x).round(mc).negate();
+        BigDecimal x = BigDecimal.ONE.divide(a, DEC_NUM + 2, DEFAULT_ROUNDING_MODE).subtract(BigDecimal.ONE);
+        return mercator(x).setScale(DEC_NUM + 2, DEFAULT_ROUNDING_MODE).negate();
     }
 
     public static BigDecimal mercator(BigDecimal x) {
