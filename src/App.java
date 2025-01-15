@@ -9,5 +9,10 @@ public class App {
         BigDecimal x = new BigDecimal("3");
         BigDecimal y = Math.exp(Math.ln(x));
         System.out.println(y);
+        System.out.println(Math.acc);
+
+        //BigDecimal x = new BigDecimal("0.25");
+        //BigDecimal y = new BigDecimal("0.25");
+        //System.out.println(x.multiply(y));
     }
 }
