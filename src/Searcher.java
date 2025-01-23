@@ -57,7 +57,14 @@ public class Searcher {
         return max;
     }
 
-    public static <T extends Comparable<? super T>> int median(T[] arr) {
+    public static <T extends Comparable<? super T>> int maxCol(T[][] mat, int col) {
+        int maxRow =
+        for (int i = 0; i < mat.length; ++i) {
+
+        }
+    }
+
+    public static <T extends Comparable<? super T>> int medOfMed(T[] arr) {
         int n = (arr.length % 5 != 0) ? arr.length / 5 + 1 : arr.length / 5;
         T[][] A = (T[][])new Object[n][5];
         int j = 0;
