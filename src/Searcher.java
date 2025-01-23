@@ -1,3 +1,5 @@
+import Util.Pair;
+
 public class Searcher {
     /**
      * Implementation of binary search algorithm 
@@ -57,11 +59,24 @@ public class Searcher {
         return max;
     }
 
-    public static <T extends Comparable<? super T>> int maxCol(T[][] mat, int col) {
-        int maxRow =
+    public static Pair<Integer> maxInCol(int[][] mat, int col) {
+        int max = 0;
         for (int i = 0; i < mat.length; ++i) {
-
+            if (mat[i][col] > mat[max][col]) {
+                max = i;
+            }
         }
+        return new Pair<Integer>(max, col);
+    }
+
+    public static <T extends Comparable<? super T>> Pair<Integer> maxInCol(T[][] mat, int col) {
+        int max = 0;
+        for (int i = 0; i < mat.length; ++i) {
+            if (mat[i][col].compareTo(mat[max][col]) > 0) {
+                max = i;
+            }
+        }
+        return new Pair<Integer>(max, col);
     }
 
     public static <T extends Comparable<? super T>> int medOfMed(T[] arr) {
