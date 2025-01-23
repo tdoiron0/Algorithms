@@ -166,11 +166,6 @@ public class Sorter {
         rQuickSort(arr, rand, j + 1, end);
     }
 
-    //TODO
-    public static <T extends Comparable<? super T>> void quickSelect(T[] arr) {
-
-    }
-
     public static void lsdRadixSort(int[] arr) {
         if (arr == null) {
             throw new IllegalArgumentException("arr cannot be equal to null.");
