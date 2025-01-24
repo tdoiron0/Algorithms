@@ -12,7 +12,6 @@ import java.util.Queue;
  * @author Trent Doiron
  * @version 1.0
  * @userid tdoiron6
- * @GTID 903833296
  *
  * Collaborators: None
  *

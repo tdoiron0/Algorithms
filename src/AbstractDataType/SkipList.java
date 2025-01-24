@@ -9,7 +9,6 @@ import java.util.NoSuchElementException;
  *
  * @author Sameer Kapoor
  * @userid skapoor68
- * @GTID 90XXXXXXX
  * @version 1.0
  *
  * Collaborators: LIST ALL COLLABORATORS YOU WORKED WITH HERE

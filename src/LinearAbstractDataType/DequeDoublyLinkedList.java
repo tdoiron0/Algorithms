@@ -8,7 +8,6 @@ import java.util.NoSuchElementException;
  * @author Trent Doiron
  * @version 1.0
  * @userid tdoiron6
- * @GTID 903833296
  *
  * Collaborators: N/A
  *
