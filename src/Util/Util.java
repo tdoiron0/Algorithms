@@ -82,11 +82,16 @@ public class Util {
             for (int j = 0; j < mat[i].length; ++j) {
                 String temp = Integer.toString(mat[i][j]);
                 String padding = getPadding(columnWidths.get(j) - temp.length());
-                temp = temp + ((j + 1 < mat[i].length) ? ", " : "");
+                if (j + 1 < mat[i].length) {
+                    temp = temp + ", ";
+                }
                 rows.get(i).append(temp);
                 rows.get(i).append(padding);
             }
-            rows.get(i).append("]\n");
+            rows.get(i).append(']');
+            if (i + 1 < mat.length) {
+                rows.get(i).append('\n');
+            }
         }
 
         StringBuilder sb = new StringBuilder();
