@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class Util {
@@ -113,5 +114,18 @@ public class Util {
 
     public static String getPadding(int n) {
         return " ".repeat(n);
+    }
+
+    public static Integer[] boxedArray(int[] primatives) {
+        return Arrays.stream(primatives).boxed().toArray(Integer[]::new);
+    }
+    public static List<Integer> boxedList(int[] primatives) {
+        return Arrays.stream(primatives).boxed().collect(Collectors.toList());
+    }
+    public static int[] unboxArray(Integer[] boxed) {
+        return Arrays.stream(boxed).mapToInt(Integer::intValue).toArray();
+    }
+    public static int[] unboxList(List<Integer> boxed) {
+        return boxed.stream().mapToInt(Integer::intValue).toArray();
     }
 }
