@@ -69,10 +69,44 @@ public class Util {
         return sb.toString();
     }
 
-    public static String toStringSpaced(int[][] arr) {
-        StringBuilder sb = new StringBuilder();
+    public static String toStringSpaced(int[][] mat) {
+        List<StringBuilder> rows = new ArrayList<>();
         List<Integer> columnWidths = new ArrayList<>();
+        for (int i = 0; i < mat[0].length; ++i) {
+            columnWidths.add(colWidth(mat, i));
+        }
 
-        return "";
+        for (int i = 0; i < mat.length; ++i) {
+            rows.add(new StringBuilder());
+            rows.get(i).append('[');
+            for (int j = 0; j < mat[i].length; ++j) {
+                String temp = Integer.toString(mat[i][j]);
+                String padding = getPadding(columnWidths.get(j) - temp.length());
+                temp = temp + ((j + 1 < mat[i].length) ? ", " : "");
+                rows.get(i).append(temp);
+                rows.get(i).append(padding);
+            }
+            rows.get(i).append("]\n");
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < rows.size(); ++i) {
+            sb.append(rows.get(i));
+        }
+        return sb.toString();
+    }
+
+    private static int colWidth(int[][] mat, int col) {
+        int max = 0;
+        for (int i = 0; i < mat.length; ++i) {
+            if (Integer.toString(mat[i][col]).length() > Integer.toString(mat[max][col]).length()) {
+                max = i;
+            }
+        }
+        return Integer.toString(mat[max][col]).length();
+    }
+
+    public static String getPadding(int n) {
+        return " ".repeat(n);
     }
 }
