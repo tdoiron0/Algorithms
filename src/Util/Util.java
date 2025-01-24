@@ -56,13 +56,13 @@ public class Util {
         return res;
     }
 
-    public static String toString(int[][] arr) {
+    public static String toString(int[][] mat) {
         StringBuilder sb = new StringBuilder();
-        for (int row = 0; row < arr.length; ++row) {
+        for (int row = 0; row < mat.length; ++row) {
             sb.append("[");
-            for (int column = 0; column < arr[row].length; ++column) {
-                sb.append(arr[row][column]);
-                sb.append((column + 1 < arr[row].length) ? ", " : "");
+            for (int column = 0; column < mat[row].length; ++column) {
+                sb.append(mat[row][column]);
+                sb.append((column + 1 < mat[row].length) ? ", " : "");
             }
             sb.append("]\n");
         } 
