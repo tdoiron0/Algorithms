@@ -79,7 +79,11 @@ public class Searcher {
         return new Pair<Integer>(max, col);
     }
 
-    public static <T extends Comparable<? super T>> int medOfMed(T[] arr) {
+    public static <T extends Comparable<? super T>> int quickSelect(T[] arr, int k) {
+        return fastSelect(arr, 0, arr.length - 1, k);
+    }
+
+    public static <T extends Comparable<? super T>> int fastSelect(T[] arr, int left, int right, int k) {
         int n = (arr.length % 5 != 0) ? arr.length / 5 + 1 : arr.length / 5;
         T[][] A = (T[][])new Object[n][5];
         int j = 0;
@@ -91,10 +95,6 @@ public class Searcher {
             A[i][4] = arr[j++];
         }
 
-        return -1;
-    }
-
-    public static <T extends Comparable<? super T>> int fastSelect(T[] arr, int k) {
         return -1;
     }
 }

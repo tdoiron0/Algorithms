@@ -72,7 +72,6 @@ public class Util {
     public static String toStringSpaced(int[][] arr) {
         StringBuilder sb = new StringBuilder();
         List<Integer> columnWidths = new ArrayList<>();
-        
 
         return "";
     }
