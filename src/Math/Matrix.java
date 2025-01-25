@@ -10,7 +10,7 @@ public class Matrix {
     private int width = 0;
 
     /**
-     * Elements stored as a list of rows. This preserves similar notation as normal Matrix2 index notation 
+     * Elements stored as a list of rows. This preserves similar notation as normal Matrix index notation 
      */
     private int[][] data;
 
@@ -38,7 +38,7 @@ public class Matrix {
 
     public int get(int row, int column) {
         if (row >= height || column >= width) {
-            throw new IllegalArgumentException(String.format("Cannot access element [%d,%d] in Matrix2 of size %dx%d", row, column, height, width));
+            throw new IllegalArgumentException(String.format("Cannot access element [%d,%d] in Matrix of size %dx%d", row, column, height, width));
         }
         return data[row][column];
     }
@@ -46,9 +46,29 @@ public class Matrix {
     public int getHeight() { return height; }
     public int getWidth() { return width; }
 
+    /**
+     * Adds two matrices
+     * 
+     * @param oper operand
+     * @return this + oper
+     */
+    public Matrix add(Matrix oper) {
+        if (height != oper.getHeight() || width != oper.getWidth()) {
+            throw new IllegalArgumentException("Cannot add matrices of differing dimentions");
+        }
+
+        int[][] result = new int[height][width];
+        for (int i = 0; i < data.length; ++i) {
+            for (int j = 0; j < data[i].length; ++j) {
+                result[i][j] = data[i][j] + oper.get(i, j);
+            }
+        }
+        return new Matrix(result);
+    }
+
     public Matrix multiply(Matrix oper) {
         if (width != oper.getHeight()) {
-            throw new IllegalArgumentException(String.format("Cannot multiply Matrix2 of dimention %dx%d by Matrix2 of %dx%d", height, width, oper.getHeight(), oper.getWidth()));
+            throw new IllegalArgumentException(String.format("Cannot multiply Matrix of dimention %dx%d by Matrix of %dx%d", height, width, oper.getHeight(), oper.getWidth()));
         }
 
         int[][] result = new int[height][];
@@ -97,7 +117,7 @@ public class Matrix {
 
     public int det() {
         if (!isSquare()) {
-            throw new IllegalStateException("Cannot find the determinant of an non-square Matrix2");
+            throw new IllegalStateException("Cannot find the determinant of an non-square Matrix");
         }
 
         //TODO
