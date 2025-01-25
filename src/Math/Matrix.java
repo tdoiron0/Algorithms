@@ -3,64 +3,44 @@ package Math;
 import java.util.ArrayList;
 import java.util.List;
 
+import Util.Util;
+
 public class Matrix {
     private int height = 0;
     private int width = 0;
 
     /**
-     * Elements stored as a list of rows. This preserves similar notation as normal matrix index notation 
+     * Elements stored as a list of rows. This preserves similar notation as normal Matrix2 index notation 
      */
-    private List<List<Integer>> data = new ArrayList<>();
+    private int[][] data;
 
     public Matrix(String src) {
         String[] rows = src.split(";");
+        data = new int[rows.length][];
+
         for (int i = 0; i < rows.length; ++i) {
-            data.add(new ArrayList<>());
             String[] elements = rows[i].split(",");
-            for (String e : elements) {
-                data.get(i).add(Integer.valueOf(e));
+            data[i] = new int[elements.length];
+
+            for (int j = 0; j < elements.length; ++j) {
+                data[i][j] = Integer.valueOf(elements[j]);
             }
         }
-        height = data.size();
-        width = data.getFirst().size();
+        this.height = data.length;
+        this.width = data[0].length;
     }
 
     public Matrix(int[][] src) {
-        this.data = new ArrayList<>();
-        for (int i = 0; i < src.length; ++i) {
-            this.data.add(Util.Util.boxedList(src[i]));
-        }
-
-        if (this.data.size() == 0) {
-            this.height = 0;
-            this.width = 0;
-        } else {
-            this.height = this.data.size();
-            this.width = this.data.getFirst().size();
-        }
-    }
-
-    public Matrix(List<List<Integer>> src) {
-        if (src == null) {
-            throw new IllegalArgumentException("src cannot be null");
-        }
-
-        if (src.size() == 0) {
-            this.data = new ArrayList<>();
-            this.height = 0;
-            this.width = 0;
-        } else {
-            this.data = new ArrayList<>(src);
-            this.height = this.data.size();
-            this.width = this.data.getFirst().size();
-        }
+        this.data = Util.copy(src);
+        this.height = data.length;
+        this.width = data[0].length;
     }
 
     public int get(int row, int column) {
         if (row >= height || column >= width) {
-            throw new IllegalArgumentException(String.format("Cannot access element [%d,%d] in matrix of size %dx%d", row, column, height, width));
+            throw new IllegalArgumentException(String.format("Cannot access element [%d,%d] in Matrix2 of size %dx%d", row, column, height, width));
         }
-        return data.get(row).get(column);
+        return data[row][column];
     }
 
     public int getHeight() { return height; }
@@ -68,18 +48,18 @@ public class Matrix {
 
     public Matrix multiply(Matrix oper) {
         if (width != oper.getHeight()) {
-            throw new IllegalArgumentException(String.format("Cannot multiply matrix of dimention %dx%d by matrix of %dx%d", height, width, oper.getHeight(), oper.getWidth()));
+            throw new IllegalArgumentException(String.format("Cannot multiply Matrix2 of dimention %dx%d by Matrix2 of %dx%d", height, width, oper.getHeight(), oper.getWidth()));
         }
 
-        List<List<Integer>> result = new ArrayList<>();
-        for (int i = 0; i < data.size(); ++i) {
-            result.add(new ArrayList<>());
+        int[][] result = new int[height][];
+        for (int i = 0; i < data.length; ++i) {
+            result[i] = new int[oper.getWidth()];
             for (int j = 0; j < oper.getWidth(); ++j) {
                 int sum = 0;
                 for (int k = 0; k < width; ++k) {
                     sum += this.get(i,k)*oper.get(k,j);
                 }
-                result.get(i).add(sum);
+                result[i][j] = sum;
             }
         }
 
@@ -102,11 +82,10 @@ public class Matrix {
     }
 
     public Matrix transpose() {
-        List<List<Integer>> result = new ArrayList<>();
+        int[][] result = new int[width][height];
         for (int j = 0; j < width; ++j) {
-            result.add(new ArrayList<>());
             for (int i = 0; i < height; ++i) {
-                result.getLast().add(this.get(i,j));
+                result[j][i] = data[i][j];
             }
         }
         return new Matrix(result);
@@ -118,7 +97,7 @@ public class Matrix {
 
     public int det() {
         if (!isSquare()) {
-            throw new IllegalStateException("Cannot find the determinant of an non-square matrix");
+            throw new IllegalStateException("Cannot find the determinant of an non-square Matrix2");
         }
 
         //TODO
@@ -127,14 +106,15 @@ public class Matrix {
     }
 
     public Matrix cofactor(int row, int column) {
-        List<List<Integer>> resultSrc = new ArrayList<>();
+        int[][] resultSrc = new int[height - 1][width - 1];
 
-        for (int i = 0; i < height; ++i) {
-            if (i != row) {
-                resultSrc.add(new ArrayList<>());
-                for (int j = 0; j < width; ++j) {
-                    if (j != column) {
-                        resultSrc.getLast().add(data.get(i).get(j));
+        int a = 0;
+        int b = 0;
+        for (int c = 0; c < height; ++c) {
+            if (c != row) {
+                for (int d = 0; d < width; ++d) {
+                    if (d != column) {
+                        resultSrc[a++][b++] = data[c][d];
                     }
                 }
             }
@@ -144,11 +124,6 @@ public class Matrix {
     }
 
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < data.size(); ++i) {
-            sb.append(data.get(i).toString().replaceAll(",", ""));
-            sb.append(((i + 1 < data.size()) ? '\n' : 0));
-        }
-        return sb.toString();
+        return Util.toStringSpaced(data);
     }
 }
