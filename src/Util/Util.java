@@ -60,12 +60,12 @@ public class Util {
     public static String toString(int[][] mat) {
         StringBuilder sb = new StringBuilder();
         for (int row = 0; row < mat.length; ++row) {
-            sb.append("[");
+            sb.append('|');
             for (int column = 0; column < mat[row].length; ++column) {
                 sb.append(mat[row][column]);
-                sb.append((column + 1 < mat[row].length) ? ", " : "");
+                sb.append((column + 1 < mat[row].length) ? " " : "");
             }
-            sb.append("]\n");
+            sb.append("|\n");
         } 
         return sb.toString();
     }

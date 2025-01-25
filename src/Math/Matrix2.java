@@ -51,15 +51,15 @@ public class Matrix2 {
             throw new IllegalArgumentException(String.format("Cannot multiply Matrix2 of dimention %dx%d by Matrix2 of %dx%d", height, width, oper.getHeight(), oper.getWidth()));
         }
 
-        List<List<Integer>> result = new ArrayList<>();
-        for (int i = 0; i < data.size(); ++i) {
-            result.add(new ArrayList<>());
+        int[][] result = new int[height][];
+        for (int i = 0; i < data.length; ++i) {
+            result[i] = new int[oper.getWidth()];
             for (int j = 0; j < oper.getWidth(); ++j) {
                 int sum = 0;
                 for (int k = 0; k < width; ++k) {
                     sum += this.get(i,k)*oper.get(k,j);
                 }
-                result.get(i).add(sum);
+                result[i][j] = sum;
             }
         }
 
@@ -82,9 +82,8 @@ public class Matrix2 {
     }
 
     public Matrix2 transpose() {
-        List<List<Integer>> result = new ArrayList<>();
+        int[][] result = new int[height][width];
         for (int j = 0; j < width; ++j) {
-            result.add(new ArrayList<>());
             for (int i = 0; i < height; ++i) {
                 result.getLast().add(this.get(i,j));
             }
@@ -107,13 +106,13 @@ public class Matrix2 {
     }
 
     public Matrix2 cofactor(int row, int column) {
-        List<List<Integer>> resultSrc = new ArrayList<>();
+        int[][] resultSrc = new int[height - 1][width - 1];
 
         for (int i = 0; i < height; ++i) {
             if (i != row) {
-                resultSrc.add(new ArrayList<>());
                 for (int j = 0; j < width; ++j) {
                     if (j != column) {
+                        resultSrc[i][]
                         resultSrc.getLast().add(data.get(i).get(j));
                     }
                 }
