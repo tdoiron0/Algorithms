@@ -7,7 +7,6 @@ public class Matrix {
     private int height = 0;
     private int width = 0;
 
-
     /**
      * Elements stored as a list of rows. This preserves similar notation as normal matrix index notation 
      */
@@ -26,10 +25,35 @@ public class Matrix {
         width = data.getFirst().size();
     }
 
+    public Matrix(int[][] src) {
+        this.data = new ArrayList<>();
+        for (int i = 0; i < src.length; ++i) {
+            this.data.add(Util.Util.boxedList(src[i]));
+        }
+
+        if (this.data.size() == 0) {
+            this.height = 0;
+            this.width = 0;
+        } else {
+            this.height = this.data.size();
+            this.width = this.data.getFirst().size();
+        }
+    }
+
     public Matrix(List<List<Integer>> src) {
-        this.data = new ArrayList<>(src);
-        this.height = src.size();
-        this.width = src.getFirst().size();
+        if (src == null) {
+            throw new IllegalArgumentException("src cannot be null");
+        }
+
+        if (src.size() == 0) {
+            this.data = new ArrayList<>();
+            this.height = 0;
+            this.width = 0;
+        } else {
+            this.data = new ArrayList<>(src);
+            this.height = this.data.size();
+            this.width = this.data.getFirst().size();
+        }
     }
 
     public int get(int row, int column) {
@@ -60,6 +84,21 @@ public class Matrix {
         }
 
         return new Matrix(result);
+    }
+
+    /**
+     * Implementation of the Strassen Algorithm  
+     * 
+     * @param oper operand to be multiply this by
+     * @return this times oper
+     */
+    public Matrix fastMultiply(Matrix oper) {
+        if (!(isSquare() && oper.isSquare() && height % 2 == 0 && oper.getHeight() % 2 == 0)) {
+            throw new IllegalArgumentException("Can only fastmultiply matriceies ");
+        }
+
+        Matrix P1;
+        return null;
     }
 
     public Matrix transpose() {
