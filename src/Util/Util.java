@@ -79,17 +79,17 @@ public class Util {
 
         for (int i = 0; i < mat.length; ++i) {
             rows.add(new StringBuilder());
-            rows.get(i).append('[');
+            rows.get(i).append('|');
             for (int j = 0; j < mat[i].length; ++j) {
                 String temp = Integer.toString(mat[i][j]);
                 String padding = getPadding(columnWidths.get(j) - temp.length());
                 if (j + 1 < mat[i].length) {
-                    temp = temp + ", ";
+                    temp = temp + " ";
                 }
                 rows.get(i).append(temp);
                 rows.get(i).append(padding);
             }
-            rows.get(i).append(']');
+            rows.get(i).append('|');
             if (i + 1 < mat.length) {
                 rows.get(i).append('\n');
             }
@@ -127,5 +127,12 @@ public class Util {
     }
     public static int[] unboxList(List<Integer> boxed) {
         return boxed.stream().mapToInt(Integer::intValue).toArray();
+    }
+
+    public static <T> T[][] deepCopy(T[][] mat) {
+        return Arrays.stream(mat).map(el -> el.clone()).toArray($ -> mat.clone());
+    }
+    public static int[][] copy(int[][] mat) {
+        return Arrays.stream(mat).map((int[] row) -> row.clone()).toArray((int length) -> new int[length][]);
     }
 }

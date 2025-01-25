@@ -7,7 +7,7 @@ import Util.Util;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        int[][] A = {{1,1,1},{1,2000000,1}};
+        int[][] A = {{1,1,1},{1,200,1},{27,13,81},{81,81,64}};
         System.out.println(Util.toStringSpaced(A));
     }
 }
