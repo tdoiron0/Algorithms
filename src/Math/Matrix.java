@@ -3,6 +3,7 @@ package Math;
 import java.util.ArrayList;
 import java.util.List;
 
+import Util.MatrixSegment;
 import Util.Util;
 
 public class Matrix {
@@ -97,7 +98,14 @@ public class Matrix {
             throw new IllegalArgumentException("Can only fastmultiply matriceies ");
         }
 
-        Matrix P1;
+        MatrixSegment oper1 = new MatrixSegment(this, 0, height - 1, 0, width - 1);
+        MatrixSegment oper2 = new MatrixSegment(oper, 0, oper.getHeight() - 1, 0, oper.getWidth() - 1);
+
+        return rFastMultiply(oper1, oper2);
+    }
+
+    public Matrix rFastMultiply(MatrixSegment a, MatrixSegment b) {
+        
         return null;
     }
 

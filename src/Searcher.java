@@ -79,11 +79,66 @@ public class Searcher {
         return new Pair<Integer>(max, col);
     }
 
-    public static <T extends Comparable<? super T>> int quickSelect(T[] arr, int k) {
-        return fastSelect(arr, 0, arr.length - 1, k);
+    public static Pair<Integer> minInCol(int[][] mat, int col) {
+        int min = 0; 
+        for (int i = 0; i < mat.length; ++i) {
+            if (mat[i][col] > mat[min][col]) {
+                min = i;
+            }
+        }
+        return new Pair<Integer>(min, col);
     }
 
+    public static <T extends Comparable<? super T>> Pair<Integer> minInCol(T[][] mat, int col) {
+        int min = 0;
+        for (int i = 0; i < mat.length; ++i) {
+            if (mat[i][col].compareTo(mat[min][col]) < 0) {
+                min = i;
+            }
+        }
+        return new Pair<Integer>(min, col);
+    }
+
+    /**
+     * Calculates the kth smallest number. 
+     * Picks pivot using randomness. 
+     * 
+     * @param <T>
+     * @param arr
+     * @param k
+     * @return
+     */
+    public static <T extends Comparable<? super T>> int quickSelect(T[] arr, int k) {
+        return -1;
+    }
+
+    /**
+     * Calculates the kth smallest number. 
+     * Uses medians of medians to find a good pivot which ensures linear time complexity but increases overhead. 
+     * 
+     * @param <T>
+     * @param arr
+     * @param left
+     * @param right
+     * @param k
+     * @return
+     */
     public static <T extends Comparable<? super T>> int fastSelect(T[] arr, int left, int right, int k) {
+        return -1;
+    }
+
+    /**
+     * Finds a good pivot 
+     * 
+     * @param <T>
+     * @param arr
+     * @return
+     */
+    public static <T extends Comparable<? super T>> int medianOfMedian(T[] arr) {
+        if (arr.length < 10) {
+            
+        }
+
         int n = (arr.length % 5 != 0) ? arr.length / 5 + 1 : arr.length / 5;
         T[][] A = (T[][])new Object[n][5];
         int j = 0;
@@ -95,6 +150,29 @@ public class Searcher {
             A[i][4] = arr[j++];
         }
 
+
+
         return -1;
+    }
+
+    private static <T extends Comparable<? super T>> T medianOf5(T[] arr, int left, int right) {
+        if (left - right + 1> 5) {
+            throw new IllegalArgumentException(String.format("Array of length %d greater than 5", left - right + 1));
+        }
+        if (left < 0 || right > arr.length) {
+            throw new IndexOutOfBoundsException(String.format("Interval of [%d,%d] out of bounds for array of lenght %d", left, right, arr.length));
+        }
+
+        T[] temp = (T[])new Object[left - right + 1]; 
+        for (int i = left; i <= right; ++i) {
+            int min = i;
+            for (int j = i + 1; j <= right; ++j) {
+                if (arr[j].compareTo(arr[min]) < 0) {
+                    min = j;
+                }
+            }
+            temp[i - left] = arr[min];
+        }
+        return temp[temp.length / 2];
     }
 }
