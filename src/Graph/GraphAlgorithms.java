@@ -78,6 +78,29 @@ public class GraphAlgorithms {
     }
 
     public static <T> Set<Edge<T>> kruskals(Graph<T> graph) {
-        return null;
+        if (graph == null) {
+            throw new IllegalArgumentException("Graph cannot be equal to null.");
+        }
+
+        DisjointSet<T> dj = new DisjointSet<>();
+        Set<Edge<T>> mst = new HashSet<>();
+        Queue<Edge<T>> pq = new PriorityQueue<>();
+
+        for (Vertex<T> it : graph.getVertices()) {
+            dj.find(it);
+        }
+        for (Edge<T> it : graph.getEdges()) {
+            pq.add(it);
+        }
+
+        while (!pq.isEmpty() && mst.size() < graph.getVertices().size() - 1) {
+            Edge<T> temp = pq.remove();
+            if (dj.find(temp.getU()) != dj.find(temp.getV())) {
+                mst.add(temp);
+                dj.union(temp.getU().getData(), temp.getV().getData());
+            }
+        }
+
+        return mst;
     }
 }
